@@ -60,7 +60,7 @@ class MainScreenPage extends GetView<MainScreenController> {
                             Text(controller.user.value.dob?.date != null
                                 ? DateFormat('dd/MM/yyyy').format(
                                     DateTime.parse(
-                                        controller.user.value!.dob!.date!))
+                                        controller.user.value.dob!.date!))
                                 : ''),
                           ],
                         ),
