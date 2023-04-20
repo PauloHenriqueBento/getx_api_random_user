@@ -10,11 +10,11 @@ class MainScreenPage extends GetView<MainScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Random User'),
+        title: const Text('Random User'),
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -24,7 +24,7 @@ class MainScreenPage extends GetView<MainScreenController> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.network(
-                        controller.user.value?.picture?.large ?? ''),
+                        controller.user.value.picture?.large ?? ''),
                   ),
                 ),
                 Card(
@@ -41,68 +41,67 @@ class MainScreenPage extends GetView<MainScreenController> {
                         ),
                         Row(
                           children: [
-                            Icon(Icons.email),
-                            SizedBox(
+                            const Icon(Icons.email),
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(controller.user.value.email ?? ''),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
                           children: [
-                            Icon(Icons.calendar_month),
-                            SizedBox(
+                            const Icon(Icons.calendar_month),
+                            const SizedBox(
                               width: 10,
                             ),
-                            Text(controller.user.value?.dob?.date != null
+                            Text(controller.user.value.dob?.date != null
                                 ? DateFormat('dd/MM/yyyy').format(
                                     DateTime.parse(
                                         controller.user.value!.dob!.date!))
                                 : ''),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
                           children: [
-                            Icon(Icons.home),
-                            SizedBox(
+                            const Icon(Icons.home),
+                            const SizedBox(
                               width: 10,
                             ),
                             Flexible(
                               child: Text(
-                                  '${controller.user.value?.location?.street?.name ?? ''}, ${controller.user.value?.location?.street?.number ?? ''} - ${controller.user.value?.location?.city ?? ''}'),
+                                  '${controller.user.value.location?.street?.name ?? ''}, ${controller.user.value.location?.street?.number ?? ''} - ${controller.user.value.location?.city ?? ''}'),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
                           children: [
-                            Icon(Icons.explore),
-                            SizedBox(
+                            const Icon(Icons.explore),
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
-                                '${controller.user.value?.location?.state ?? ''} - ${controller.user.value?.location?.country ?? ''}')
+                                '${controller.user.value.location?.state ?? ''} - ${controller.user.value.location?.country ?? ''}')
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
                           children: [
-                            Icon(Icons.phone),
-                            SizedBox(
+                            const Icon(Icons.phone),
+                            const SizedBox(
                               width: 10,
                             ),
-                            Text(
-                                controller.user.value?.phone?.toString() ?? ''),
+                            Text(controller.user.value.phone?.toString() ?? ''),
                           ],
                         ),
                       ],
