@@ -1,227 +1,68 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+import 'package:random_user/model/user_dob_model.dart';
+import 'package:random_user/model/user_location_model.dart';
+import 'package:random_user/model/user_name_model.dart';
+import 'package:random_user/model/user_picture_model.dart';
+
 class UserModel {
   String? gender;
   Name? name;
   Location? location;
   String? email;
   Dob? dob;
+  Dob? registered;
   String? phone;
   String? cell;
   Picture? picture;
+  String? nat;
 
-  UserModel(
-      {this.gender,
-        this.name,
-        this.location,
-        this.email,
-        this.dob,
-        this.phone,
-        this.cell,
-        this.picture});
+  UserModel(this.gender, this.name, this.location, this.email, this.dob,
+      this.registered, this.phone, this.cell, this.picture, this.nat);
 
-  UserModel.fromJson(Map<String, dynamic> json) {
-    gender = json['gender'];
-    name = json['name'] != null ? new Name.fromJson(json['name']) : null;
-    location = json['location'] != null
-        ? new Location.fromJson(json['location'])
-        : null;
-    email = json['email'];
-    dob = json['dob'] != null ? new Dob.fromJson(json['dob']) : null;
-    phone = json['phone'];
-    cell = json['cell'];
-    picture =
-    json['picture'] != null ? new Picture.fromJson(json['picture']) : null;
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gender': gender,
+      'name': name?.toMap(),
+      'location': location?.toMap(),
+      'email': email,
+      'dob': dob?.toMap(),
+      'registered': registered?.toMap(),
+      'phone': phone,
+      'cell': cell,
+      'picture': picture?.toMap(),
+      'nat': nat,
+    };
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['gender'] = this.gender;
-    if (this.name != null) {
-      data['name'] = this.name!.toJson();
-    }
-    if (this.location != null) {
-      data['location'] = this.location!.toJson();
-    }
-    data['email'] = this.email;
-    if (this.dob != null) {
-      data['dob'] = this.dob!.toJson();
-    }
-    data['phone'] = this.phone;
-    data['cell'] = this.cell;
-    if (this.picture != null) {
-      data['picture'] = this.picture!.toJson();
-    }
-    return data;
-  }
-}
-
-class Name {
-  String? title;
-  String? first;
-  String? last;
-
-  Name({this.title, this.first, this.last});
-
-  Name.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    first = json['first'];
-    last = json['last'];
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      map['gender'] != null ? map['gender'] as String : null,
+      map['name'] != null
+          ? Name.fromMap(map['name'] as Map<String, dynamic>)
+          : null,
+      map['location'] != null
+          ? Location.fromMap(map['location'] as Map<String, dynamic>)
+          : null,
+      map['email'] != null ? map['email'] as String : null,
+      map['dob'] != null
+          ? Dob.fromMap(map['dob'] as Map<String, dynamic>)
+          : null,
+      map['registered'] != null
+          ? Dob.fromMap(map['registered'] as Map<String, dynamic>)
+          : null,
+      map['phone'] != null ? map['phone'] as String : null,
+      map['cell'] != null ? map['cell'] as String : null,
+      map['picture'] != null
+          ? Picture.fromMap(map['picture'] as Map<String, dynamic>)
+          : null,
+      map['nat'] != null ? map['nat'] as String : null,
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['first'] = this.first;
-    data['last'] = this.last;
-    return data;
-  }
-}
+  String toJson() => json.encode(toMap());
 
-class Location {
-  Street? street;
-  String? city;
-  String? state;
-  String? country;
-  int? postcode;
-  Coordinates? coordinates;
-  Timezone? timezone;
-
-  Location(
-      {this.street,
-        this.city,
-        this.state,
-        this.country,
-        this.postcode,
-        this.coordinates,
-        this.timezone});
-
-  Location.fromJson(Map<String, dynamic> json) {
-    street =
-    json['street'] != null ? new Street.fromJson(json['street']) : null;
-    city = json['city'];
-    state = json['state'];
-    country = json['country'];
-    postcode = json['postcode'];
-    coordinates = json['coordinates'] != null
-        ? new Coordinates.fromJson(json['coordinates'])
-        : null;
-    timezone = json['timezone'] != null
-        ? new Timezone.fromJson(json['timezone'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.street != null) {
-      data['street'] = this.street!.toJson();
-    }
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['country'] = this.country;
-    data['postcode'] = this.postcode;
-    if (this.coordinates != null) {
-      data['coordinates'] = this.coordinates!.toJson();
-    }
-    if (this.timezone != null) {
-      data['timezone'] = this.timezone!.toJson();
-    }
-    return data;
-  }
-}
-
-class Street {
-  int? number;
-  String? name;
-
-  Street({this.number, this.name});
-
-  Street.fromJson(Map<String, dynamic> json) {
-    number = json['number'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['number'] = this.number;
-    data['name'] = this.name;
-    return data;
-  }
-}
-
-class Coordinates {
-  String? latitude;
-  String? longitude;
-
-  Coordinates({this.latitude, this.longitude});
-
-  Coordinates.fromJson(Map<String, dynamic> json) {
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    return data;
-  }
-}
-
-class Timezone {
-  String? offset;
-  String? description;
-
-  Timezone({this.offset, this.description});
-
-  Timezone.fromJson(Map<String, dynamic> json) {
-    offset = json['offset'];
-    description = json['description'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['offset'] = this.offset;
-    data['description'] = this.description;
-    return data;
-  }
-}
-
-class Dob {
-  String? date;
-  int? age;
-
-  Dob({this.date, this.age});
-
-  Dob.fromJson(Map<String, dynamic> json) {
-    date = json['date'];
-    age = json['age'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['date'] = this.date;
-    data['age'] = this.age;
-    return data;
-  }
-}
-
-class Picture {
-  String? large;
-  String? medium;
-  String? thumbnail;
-
-  Picture({this.large, this.medium, this.thumbnail});
-
-  Picture.fromJson(Map<String, dynamic> json) {
-    large = json['large'];
-    medium = json['medium'];
-    thumbnail = json['thumbnail'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['large'] = this.large;
-    data['medium'] = this.medium;
-    data['thumbnail'] = this.thumbnail;
-    return data;
-  }
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
