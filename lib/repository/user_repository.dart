@@ -10,7 +10,6 @@ class UserRepository {
     const url = "https://randomuser.me/api/";
     final results = await restClient.get(url);
     final data = json.encode(results.body['results'][0]);
-    // print(results.body);
     if (results.status.hasError) {
       return Future.error(results.statusText!);
     } else {
